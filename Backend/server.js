@@ -1,8 +1,20 @@
 const express = require('express');
 const app = express(); 
 
-app.post('/api/data',(req,res) => {
-    res.json({message: 'Data received successfully'});
+const notes = [] 
+
+app.use(express.json());
+
+app.post('/notes',(req,res) => {
+    notes.push(req.body);
+    res.status(201).send('Note added successfully');
+})
+
+app.get('/notes',(req,res) => {
+    res.status(201).json( {
+        message: "notes retrieved successfully",
+        notes: notes
+    })
 });
 
 app.listen(3000, () => {
